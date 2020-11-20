@@ -1,0 +1,51 @@
+@startuml
+
+title Angular Github repository structure
+
+package "BuildTools" {
+	package "Own" {
+		[ng-dev] <<CLI>>
+		note right
+			- check cyclical deps
+			- create release train
+		end note
+	}
+
+	package "External" {
+		CLI - [yarn] <<CLI>>
+		[yarn]
+		[yarn] --> [Bazelisk]: forward commands
+		[yarn] --> [ng-dev]
+
+		[Bazel] <<CLI>>
+		[Bazel] --> [BazelConfig]: reads configuration
+
+		[Bazelisk] <<CLI>>
+		[Bazelisk] --> [Bazel]: forward commands
+	}
+}
+
+package "Sources" {
+	[./packages] <<dir>>
+	note right
+		- all angular packages
+	end note
+
+	[./package.json] <<src>>
+	[yarn] --> [./package.json]: reads configuration
+
+	package "BazelConfig" {
+		[WORKSPACE] <<src>>
+		[./BUILD] <<src>>
+		[./<package>/BUILD.bazel] <<src>>
+	}
+
+	[./.circleci] <<src>>
+}
+
+
+[CircleCI] <<SaaS>>
+[CircleCI] --> [./.circleci]: execute pipeline
+
+
+@enduml
