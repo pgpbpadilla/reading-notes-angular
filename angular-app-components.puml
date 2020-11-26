@@ -1,0 +1,16 @@
+@startuml
+
+package "Angular Workspace" {
+	[Application1]
+	[Application2]
+}
+
+package "Angular Application" {
+	[Component1] - [View1]
+}
+
+
+
+
+
+@enduml

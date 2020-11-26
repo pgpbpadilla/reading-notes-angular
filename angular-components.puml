@@ -1,0 +1,44 @@
+@startuml
+
+title Angular Basic Concepts
+
+component Templates {
+	component TypeScript {
+		component JavaScript
+	}
+	component HTML
+}
+
+
+node "github://angular/angular" {
+	package "packages" {
+		package "core" {
+			file "src/metadata/directives.ts" as directives.ts
+		}
+	}
+}
+
+
+[Directive]
+
+[Component] -up-> [Directive]
+[Directive] -up-> directives.ts: defined in
+[Component] -up-> directives.ts: defined in
+
+
+package "Directives" as "pgk_directives" {
+	package "Structural Directives" {
+		note as SDN
+		Structural Directives
+		---
+		- are indicated with `*`
+		- modify the DOM node they
+		are attached to
+		end note
+    	[`*ngFor`]
+    }
+}
+
+pgk_directives <-up- [Directive]: examples
+
+@enduml
