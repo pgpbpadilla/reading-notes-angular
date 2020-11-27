@@ -2,14 +2,6 @@
 
 title Angular Basic Concepts
 
-component Templates {
-	component TypeScript {
-		component JavaScript
-	}
-	component HTML
-}
-
-
 node "github://angular/angular" {
 	package "packages" {
 		package "core" {
@@ -18,27 +10,65 @@ node "github://angular/angular" {
 	}
 }
 
+package "Angular Framework" {
 
-[Directive]
+    package "Directives" as "pgk_directives" {
+		[Directive]
 
-[Component] -up-> [Directive]
-[Directive] -up-> directives.ts: defined in
-[Component] -up-> directives.ts: defined in
+		[Component] -up-> [Directive]: is a
 
-
-package "Directives" as "pgk_directives" {
-	package "Structural Directives" {
-		note as SDN
-		Structural Directives
-		---
-		- are indicated with `*`
-		- modify the DOM node they
-		are attached to
-		end note
-    	[`*ngFor`]
+    	package "Structural Directives" {
+    		note as SDN
+    		Structural Directives
+    		---
+    		- are indicated with `*`
+    		- modify the DOM node they
+    		are attached to
+    		end note
+        	[`*ngFor`]
+        }
     }
+
+    directives.ts -down-> pgk_directives
+
+
+	' Templates
+
+	package "Templates" as AT {
+    	component TypeScript
+    	component HTML
+    }
+
+    'Ivy Compiler
+
+    package "Ivy" {
+    	note as IvyN
+    	Ivy
+    	---
+    	Compilation + Rendering pipeline
+    	for Angular 9+
+    	end note
+
+        component Runtime
+        component Compiler {
+        	component AOT [
+            	AOT
+            	---
+            	Ahead Of Time compilation
+            ]
+        }
+
+        ' Component Definition generation
+        Component --> Compiler
+        component "Component Definition" as ComponentDef
+        Compiler --> ComponentDef
+    }
+
+    ' Workspace
+
+    component Workspace
 }
 
-pgk_directives <-up- [Directive]: examples
+
 
 @enduml
