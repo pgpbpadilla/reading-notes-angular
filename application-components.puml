@@ -1,0 +1,26 @@
+@startuml
+
+title Angular Application
+
+component ProductList <<Component>> as PL {
+	component "product-list.ts" <<TypeScript file>> as pl.class
+	[product-list.html] <<HTML file>> as pl.template
+	[product-list.css] <<CSS file>> as pl.style
+}
+
+component ProductAlerts <<Component>> as PAC {
+	[product-alerts.html] as pac.template
+	[product-alerts.css] as pac.style
+	[product-alerts.ts] as pac.class
+}
+
+
+interface product <<@angular/core/Input>>
+PAC - product
+interface notify <<@angular/core/Onput>>
+PAC --> notify <<@Output>> : event
+
+PL -> product: new
+notify -- PL: event
+
+@enduml
