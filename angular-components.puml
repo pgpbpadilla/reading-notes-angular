@@ -2,19 +2,14 @@
 
 title Angular Basic Concepts
 
-node "github://angular/angular" {
-	package "packages" {
-		package "core" {
-			file "src/metadata/directives.ts" as directives.ts
-		}
-	}
+left to right direction
+
+node "github://angular/angular" as GH_REPO {
+	[core/src/metadata/directives.ts] <<TypeScript file>> as SRC_DIR
 }
 
-package "Angular Framework" {
-
-    package "Directives" as "pgk_directives" {
+    package Directives {
 		[Directive]
-
 		[Component] -up-> [Directive]: is a
 
     	package "Structural Directives" {
@@ -28,16 +23,38 @@ package "Angular Framework" {
         	[`*ngFor`]
         }
     }
-
-    directives.ts -down-> pgk_directives
+    Directives -up-> SRC_DIR
 
 
 	' Templates
 
-	package "Templates" as AT {
-    	component TypeScript
-    	component HTML
-    }
+	component TypeScript
+	component HTML
+	component "Angular Templates" as AT
+	AT --> HTML: extends
+	AT --> TypeScript: extends
+
+    package Binding {
+		component Interpolation {
+			note as intNote
+				{{ object1.property1 }}
+			end note
+		}
+		component "Property Binding" {
+			note as pBindNote
+				<a [title]="object1.property1"></a>
+			end note
+		}
+		component "Event Binding" {
+			note as eBindNote
+				<button (clic)="componentMethod1()>
+			end note
+		}
+	}
+
+	Binding --> [AT]: used in
+
+    Component -up-> AT: use
 
     'Ivy Compiler
 
@@ -59,15 +76,22 @@ package "Angular Framework" {
         }
 
         ' Component Definition generation
-        Component --> Compiler
+        Component --> Compiler: is compiled by
         component "Component Definition" as ComponentDef
-        Compiler --> ComponentDef
+        Compiler --> ComponentDef: produces
     }
 
     ' Workspace
 
-    component Workspace
-}
+    component Workspaces {
+    	note as wsNote
+    	Manage Angular Applications
+    	end note
+
+    	[app1] <<Angular app>>
+    	[app2] <<Angular app>>
+    }
+
 
 
 

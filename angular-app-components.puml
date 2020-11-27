@@ -2,35 +2,19 @@
 
 title Angular Application components
 
-component "Angular Template" as AT
-
 node "Git Repo" {
-	file angular.json
 	component Workspace {
-    	[Application1]
-    	component Application2 {
-    		[Component1] - [View1]
+	    [angular.json] <<Workspace Configuration>>
+    	[Application1] <<Angular App>>
+    	component Application2 <<Angular App>> {
+'			left to right direction
+			[ComponentTemplate.html] <<Angular Template>> as CT
+			[CT] - [View1]
     	}
+
+    	angular.json --> Application1: manages
+    	angular.json --> Application2: manages
     }
-
-    angular.json -down-> Workspace: manages
-
-	package Templates {
-		file property_binding.html {
-                		note as C
-                			"<a [title]="object.property1"></a>"
-                		end note
-            	}
-
-		file interpolation.html {
-			note as eiN
-				<h3> {{object.property}} </a>
-			end note
-		}
-	}
-
-	Templates -up-> AT: examples
-
 }
 
 
