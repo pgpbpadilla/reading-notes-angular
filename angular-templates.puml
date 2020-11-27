@@ -1,0 +1,34 @@
+@startuml
+
+package Templates {
+
+	component TypeScript
+	component HTML
+	component "Angular Templates" as AT
+	AT -up-> HTML: extends
+	AT -up-> TypeScript: extends
+
+	package Binding {
+		component Event [
+			Event
+			---
+			<T (e) = "fn" />
+		]
+
+		component Prop [
+			Property
+			---
+			<T [k] = "v" />
+		]
+
+		component Interpolation [
+			Interpolation
+			---
+			<T> {{ v }} </T>
+		]
+	}
+
+	AT --> Binding
+}
+
+@enduml

@@ -1,0 +1,19 @@
+@startuml
+
+
+'Ivy Compiler
+
+package "Ivy: Compilation + Rendering" as IVY {
+	note as IvyN
+	Ivy
+	---
+	* requires Angular 9+
+	* Introduces AOT (Ahead-of-time) compilation
+	end note
+
+	' Component Definition generation
+	[ComponentA] --> [Compiler]: is compiled by
+	component "Component Definition" as ComponentDef1
+	Compiler --> ComponentDef1: produces
+}
+@enduml

@@ -8,91 +8,16 @@ node "github://angular/angular" as GH_REPO {
 	[core/src/metadata/directives.ts] <<TypeScript file>> as SRC_DIR
 }
 
-    package Directives {
-		[Directive]
-		[Component] -up-> [Directive]: is a
-
-    	package "Structural Directives" {
-    		note as SDN
-    		Structural Directives
-    		---
-    		- are indicated with `*`
-    		- modify the DOM node they
-    		are attached to
-    		end note
-        	[`*ngFor`]
-        }
-    }
-    Directives -up-> SRC_DIR
+component Directives
+component Templates
+component Ivy [
+	Ivy
+	---
+	Compilation + Rendering pipeline
+]
+component Workspace
 
 
-	' Templates
-
-	component TypeScript
-	component HTML
-	component "Angular Templates" as AT
-	AT --> HTML: extends
-	AT --> TypeScript: extends
-
-    package Binding {
-		component Interpolation {
-			note as intNote
-				{{ object1.property1 }}
-			end note
-		}
-		component "Property Binding" {
-			note as pBindNote
-				<a [title]="object1.property1"></a>
-			end note
-		}
-		component "Event Binding" {
-			note as eBindNote
-				<button (clic)="componentMethod1()>
-			end note
-		}
-	}
-
-	Binding --> [AT]: used in
-
-    Component -up-> AT: use
-
-    'Ivy Compiler
-
-    package "Ivy" {
-    	note as IvyN
-    	Ivy
-    	---
-    	Compilation + Rendering pipeline
-    	for Angular 9+
-    	end note
-
-        component Runtime
-        component Compiler {
-        	component AOT [
-            	AOT
-            	---
-            	Ahead Of Time compilation
-            ]
-        }
-
-        ' Component Definition generation
-        Component --> Compiler: is compiled by
-        component "Component Definition" as ComponentDef
-        Compiler --> ComponentDef: produces
-    }
-
-    ' Workspace
-
-    component Workspaces {
-    	note as wsNote
-    	Manage Angular Applications
-    	end note
-
-    	[app1] <<Angular app>>
-    	[app2] <<Angular app>>
-    }
-
-
-
+Directives --> SRC_DIR: defined in
 
 @enduml

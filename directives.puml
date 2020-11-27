@@ -1,0 +1,19 @@
+@startuml
+
+package Directives {
+	[Directive]
+	[Component] -up-> [Directive]: is a
+
+	package "Structural Directives" {
+		note as SDN
+		Structural Directives
+		---
+		- are indicated with `*`
+		- modify the DOM node they
+		are attached to
+		end note
+		[`*ngFor`]
+	}
+}
+
+@enduml

@@ -1,0 +1,23 @@
+@startuml
+
+title Angular Workspaces
+
+node GitRepo {
+
+	component angular.json <<JSON file>> {
+		[appA-config] <<JSON object>>
+		[appB-config] <<JSON object>>
+	}
+
+	component appA <<directory>> {
+		[ApplicationA] <<Angular app>>
+	}
+	component appB <<directory>> {
+		[ApplicationB] <<Angular app>>
+	}
+
+	[appA-config] --> appA
+	[appB-config] --> appB
+}
+
+@enduml
