@@ -8,7 +8,11 @@ package "Ivy: Compilation + Rendering" as IVY {
 	Ivy
 	---
 	* requires Angular 9+
-	* Introduces AOT (Ahead-of-time) compilation
+	* AOT (Ahead-of-time) compilation
+	* Tree shaking (removes dead code)
+	** smaller bundle size
+	* Incremental compilation
+	* Flexibility (easier to extend)
 	end note
 
 	' Component Definition generation
