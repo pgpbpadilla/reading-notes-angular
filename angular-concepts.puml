@@ -1,0 +1,32 @@
+@startuml
+
+title Angular Basic Concepts
+
+
+node "github://angular/angular" as GH_REPO {
+	[core/src/metadata/directives.ts] <<TypeScript file>> as SRC_DIR
+}
+
+package Directives {
+	component Directive
+    SRC_DIR <-- Directive: defined in
+    [Directive] <-- [Structural Directive]: extends
+    [Directive] <-- [Attribute Directive]: extends
+    component Component
+    [Directive] <-- Component: extends
+}
+
+component Workspace {
+	component Application1 <<Angular App>>
+	[Application2] <<Angular App>>
+}
+
+Application2 ..> Component: made of many
+
+Component <.. [Ivy]: compiles+renders
+
+note right of Ivy
+Compilation + Rendeging pipeline
+end note
+
+@enduml

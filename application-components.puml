@@ -2,25 +2,28 @@
 
 title Angular Application
 
-component ProductList <<Component>> as PL {
-	component "product-list.ts" <<TypeScript file>> as pl.class
-	[product-list.html] <<HTML file>> as pl.template
-	[product-list.css] <<CSS file>> as pl.style
+component Workspace {
+
+	component App1 {
+		component Component1 {
+			[template.html] ..> [class.ts]: binds
+			[class.ts] .> [styles.css]: loads
+			[class.ts] .> [template.html]: loads
+		}
+
+		component Component2 {
+			[EmbeddedComponent1] -- [EmbeddedComponent2]: communication
+		}
+
+		[Component3]
+
+		Component1 ..> events
+		events )-- Component2
+	}
+
+	[angular.json] --> App1: configures
+	[angular.json] --> [App2]: configures
+
 }
-
-component ProductAlerts <<Component>> as PAC {
-	[product-alerts.html] as pac.template
-	[product-alerts.css] as pac.style
-	[product-alerts.ts] as pac.class
-}
-
-
-interface product <<@angular/core/Input>>
-PAC - product
-interface notify <<@angular/core/Onput>>
-PAC --> notify <<@Output>> : event
-
-PL -> product: new
-notify -- PL: event
 
 @enduml

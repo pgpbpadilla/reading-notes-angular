@@ -1,0 +1,30 @@
+@startuml
+
+title The Angular Ecosystem
+
+package "Angular Platform" {
+
+	component "Angular Framework" as AF {
+		[Angular Component] as AC
+
+		AC <.. [Date Picker]
+		AC <.. [Dialog]
+		AC <.. [Grid]
+		AC <.. [Table]
+	}
+
+	component [Component Library] as CL
+	AC <- CL: is a collection of
+
+	package Tools {
+		[Ivy]
+		[CLI]
+	}
+
+}
+
+[Library Aggregator] --> CL: aggregates
+
+
+
+@enduml

@@ -1,0 +1,51 @@
+@startuml
+
+title Component Communication
+
+component "Component A"  as A{
+	component "template A" <<HTML>> as templateA {
+		component "Embedded" <<Template B>> as embedded
+		Binding )- embedded
+
+		note as BindingNote
+		Binding
+		---
+		template A binds:
+		- interpolations
+		- properties
+		- events
+		end note
+	}
+
+	[class A] <<TypeScript>> as classA
+	Binding <.. classA
+
+	[style A] <<CSS>>
+}
+
+component "Component B" as B {
+	component "class B" <<TypeScript>> as classB {
+		[input]  <<@angular/core/Input>>
+		[output]  <<@angular/core/Output>>
+	}
+
+	interface "DOM events" as eventsA
+
+	component "Template B" <<HTML>> as templateB
+	eventsA )-- templateB
+	output ..> eventsA
+}
+
+embedded .> B: is instance of
+
+interface "Component\nInitialization" as newB
+newB )-- [input]
+interface  "Component\nEvents" as eventsB
+eventsB )-- [output]
+
+templateA ..> newB
+templateA ..> eventsB
+
+
+
+@enduml
