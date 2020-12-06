@@ -1,0 +1,70 @@
+@startuml
+
+left to right direction
+
+component Application <<Angular App>> {
+
+	package Modules {
+		[Root] <<NgModule>>
+
+		[Component1] <<NgModule>>
+		[Component1] --> [View1]: defines
+
+		[Component2] <<NgModule>>
+		[Component2] --> [View2]: defines
+
+		[Root] ..> [Component1]: boostraps
+		[Root] ..> [Component2]: boostraps
+
+		[Service1] <.. [Component1]: uses
+	}
+
+	package Decorators {
+		[Metadata] <<Decorator>>
+
+		component Component3 <<Component>> {
+			[service2]
+		}
+
+		[Metadata] ..> Component3: defines template
+
+		component Service2 <<Service>>
+		[Service2] <-- [service2]: instance of
+		[Metadata] <.. Service2: has
+		[Metadata] ..> [service2]: injects
+
+		Component3 ..> [Template]: uses
+
+		component Template {
+			[HTML]
+			[Directive] --> [HTML]: modify
+			[Bindings] <<HTML+>>
+			[Bindings] --> [HTML]: modify
+		}
+		Template --> [View]: define
+
+	}
+
+	package ViewHierarchy {
+		component ComponentX {
+			[router]
+		}
+
+		component ViewA <<View>> {
+			[ViewB]
+			[ViewC]
+		}
+		ComponentX --> ViewA: define
+
+		[Router] <<Service>>
+		[Router] <.. ComponentX: define navigation
+
+		[Router] <-- [router]: instance of
+		[router] ..> [ViewC]: dispatch
+		[router] ..> [ViewB]: dispatch
+	}
+}
+
+
+
+@enduml
