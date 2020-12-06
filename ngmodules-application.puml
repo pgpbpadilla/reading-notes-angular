@@ -4,8 +4,27 @@ left to right direction
 
 component Application <<Angular App>> {
 
+	package "Compilation Context" as CC {
+		[ES2015 Module] <-- [NgModule]: extends
+
+		component Domain1 <<NgModule>> {
+			[Component0]
+			[ComponentY]
+			[ComponentZ]
+		}
+		component Domain2 <<NgModule>>
+
+		component Context1 <<CompilationContext>>
+		component Context2 <<CompilationContext>>
+		Domain1 --> [Context1]: declares
+		Domain2 --> [Context2]: declares
+
+		[NgModule] <-- Domain1: instance of
+		[NgModule] <-- Domain2: instance of
+	}
+
 	package Modules {
-		[Root] <<NgModule>>
+		[AppModule (Root)] <<NgModule>> as Root
 
 		[Component1] <<NgModule>>
 		[Component1] --> [View1]: defines
