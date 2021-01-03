@@ -1,0 +1,48 @@
+@startuml
+
+title RxJS Observables in Angular
+
+[Angular] <<Framework>> as AF
+
+package "RxJS Library" as rxjs {
+
+  [Observable] <<Interface>>
+  component Observer <<Interface>> {
+    [pipe] <<method>> as PIPE_OM
+  }
+  [Subject] <<Interface>>
+  Observer <- [Subject]: extends
+  Observer <.. [Subject]: multicast to many
+
+  [Observable] <-- [Subject]: extends
+  [Observable] <. Observer: consumes values from
+
+
+  [Operator] <<function>> as OF
+
+  package "Observable Creation" as Creation {
+    [of]
+    [from]
+  }
+  OF <-- Creation
+
+  package "Value filtering" as Filtering {
+    [distinctUntilChanged]
+    [filter]
+  }
+  OF <-- Filtering
+
+  package "Value tranformation" as Transformation {
+    [map]
+    [switchMap]
+  }
+  OF <-- Transformation
+
+  [pipe] <<function>> as PIPE_SA
+  PIPE_SA ..> OF: chain
+  PIPE_OM ..> OF: chain
+}
+
+AF ..> rxjs: uses
+
+@enduml
