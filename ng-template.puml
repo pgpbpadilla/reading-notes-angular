@@ -1,0 +1,20 @@
+@startuml
+'https://plantuml.com/component-diagram
+
+
+[ng-template] as NgTemplate
+[ng-container]
+
+package "Syntactic sugar: Structural Directives" as Sugar {
+    [ngIf] <<Directive>>
+    [ngIfElse]  <<Directive>>
+}
+
+note left of Sugar
+    Only 1 Directive allowed
+    per HTML element
+end note
+
+NgTemplate <.. Sugar: use
+
+@enduml
