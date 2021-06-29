@@ -1,20 +1,51 @@
 @startuml
 'https://plantuml.com/component-diagram
 
+title Using ng-template
 
-[ng-template] as NgTemplate
-[ng-container]
 
-package "Syntactic sugar: Structural Directives" as Sugar {
-    [ngIf] <<Directive>>
-    [ngIfElse]  <<Directive>>
+component "ng-template" as NgTemplate {
+    [name] <<Attribute>> as TName
 }
+note bottom of NgTemplate
+    !! Creates an extra
+    DIV element
+end note
+note bottom of NgTemplate
+    Example
 
-note left of Sugar
-    Only 1 Directive allowed
-    per HTML element
+    <ng-template #templateName" ...>
 end note
 
-NgTemplate <.. Sugar: use
+component "ng-container" as NgContainer {
+    component "ngTemplateOutlet" as TemplateOutlet {
+        [Template Name] --> TName
+        [Context] as C
+        note right of C
+            Provided by the Component
+            Example:
+
+            export class AppComponent {
+                ctx = { ... context ... };
+            }
+        end note
+    }
+}
+note bottom of NgContainer
+    Example:
+
+    <ng-container
+        *ngTemplateOutlet="templateName; context: ctx">
+end note
+
+note top of NgContainer
+    Does not create
+    extra HTML elements
+end note
+
+
+
+
+
 
 @enduml
