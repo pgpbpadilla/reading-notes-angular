@@ -1,7 +1,14 @@
 @startuml
 'https://plantuml.com/component-diagram
 
-title Using ng-template
+title Structural directives: syntax sugar
+
+[ng-template] <-- [ngIf] <<@Directive>>: extend
+[ng-template] <-- [ngFor] <<@Directive>>: extend
+
+newpage
+
+title ng-template & ng-container
 
 
 component "ng-template" as NgTemplate {
@@ -44,8 +51,24 @@ note top of NgContainer
 end note
 
 
+newpage
+
+left to right direction
+title @ViewChild: Dynamically injecting templates
 
 
+component "AppComponent" {
+    package HTML {
+        [defaultTab] <<ng-template>> as Template
+    }
+
+    package TypeScript {
+        [defaultTab] <<TemplateRef>> as Reference
+        [ViewChild] <<@Decorator>> as VC
+        Template <.. VC: load template
+        VC ..> Reference: inject template
+    }
+}
 
 
 @enduml
